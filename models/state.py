@@ -25,6 +25,7 @@ class State(BaseModel, Base):
     if os.getenv('HBNB_TYPE_STORAGE') == 'fs':
         @property
         def cities(self):
+            """Getter for cities."""
             cities_list = []
             for city in models.storage.all(City).values():
                 if self.id == city.state_id:
