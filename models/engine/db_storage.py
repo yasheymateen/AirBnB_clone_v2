@@ -44,10 +44,8 @@ class DBStorage:
             objs = []
             classes = [State, City, User]
             for c in classes:
-                results = self.__session.query(c)
-                print(results)
-                for res in results:
-                    objs.append(res)
+                results = self.__session.query(c).all()
+                objs.extend(results)
         else:
             objs = self.__session.query(cls).all()
         for obj in objs:
