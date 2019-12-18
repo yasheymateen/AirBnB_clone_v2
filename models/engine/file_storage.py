@@ -66,6 +66,7 @@ class FileStorage:
         """Deletes objects in __objects."""
         if obj:
             objs_to_delete = self.all(obj.__class__)
-            for k in objs_to_delete:
-                del self.__objects[k]
+            for k, v in objs_to_delete.items():
+                if obj is v:
+                    del self.__objects[k]
             self.save()
