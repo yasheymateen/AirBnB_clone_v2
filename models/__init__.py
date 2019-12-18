@@ -9,7 +9,6 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
-print("storage type", os.getenv('HBNB_MYSQL_USER'))
 if os.getenv('HBNB_TYPE_STORAGE') == "db":
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
