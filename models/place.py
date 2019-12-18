@@ -77,8 +77,22 @@ class Place(BaseModel, Base):
     else:
         @property
         def reviews(self):
+            """Getter for reviews."""
             reviews_list = []
             for review in models.storage.all(Review).values():
                 if review.place_id == self.id:
                     reviews_list.append(review)
             return(reviews_list)
+        @property
+        def amenities(self):
+            """Getter for amenities."""
+            amenities_list = []
+            for obj in amenity_ids:
+                if obj.id == self.id:
+                    amenities_list.append(obj)
+            return amenities_list
+        @amenities.setter
+        def amenities(self, obj):
+            """Adds an Amenity.id to the attribute amenity_ids"""
+            if type(obj).__name__ == 'Amenity':
+                self.amenity_ids.append(obj)
