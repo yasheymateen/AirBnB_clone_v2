@@ -10,15 +10,11 @@ class Amenity(BaseModel, Base):
     """This is the class for Amenity
     Attributes:
         name: input name
-
+    """
     __tablename__ = "amenities"
     name = Column(
         String(128), nullable=False
     )
-    """
-
-    __tablename__ = 'amenities'
-    name = Column('name', String(1024), nullable=False)
 
     place_amenities = relationship(
         "Place",

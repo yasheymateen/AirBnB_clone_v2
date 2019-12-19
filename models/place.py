@@ -65,7 +65,7 @@ class Place(BaseModel, Base):
     latitude = Column(Float)
     longitude = Column(Float)
     amenity_ids = []
-    """
+
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship(
             "Review",
@@ -84,46 +84,3 @@ class Place(BaseModel, Base):
                 if review.place_id == self.id:
                     reviews_list.append(review)
             return(reviews_list)
-            """
-
-    """ Yash's Test Addition """
-    @property
-    def reviews(self):
-        review_instances = []
-        objects = storage.all()
-        for k, v in objects.items():
-            class_name = k.split(".")[0]
-            if class_name == "Review":
-                if v["place_id"] == self.id:
-                    review_instances.append(v)
-        return review_instances
-
-    @property
-    def amenities(self):
-        amenity_instances = []
-        objects = storage.all()
-        for k, v in objects.items():
-            class_name, instance_id = k.split(".")
-            if class_name == "Amenity":
-                if (v["place_id"] == self.id and
-                        instance_id in self.amenity_ids):
-                    amenity_instances.append(v)
-        return amenity_instances
-
-    @amenities.setter
-    def amenities(self, obj):
-        if isinstance(obj, Amenity):
-            self.amenity_ids.append(obj.id)
-
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        reviews = relationship(
-                'Review',
-                cascade='all, delete',
-                backref='place'
-            )
-        amenities = relationship(
-                'Amenity',
-                secondary=place_amenity,
-                viewonly=False,
-                backref='place'
-            )
