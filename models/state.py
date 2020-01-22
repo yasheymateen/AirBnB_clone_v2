@@ -4,6 +4,7 @@ import os
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
+from os import getenv
 
 
 class State(BaseModel, Base):
@@ -31,3 +32,6 @@ class State(BaseModel, Base):
                 if self.id == city.state_id:
                     cities_list.append(city)
             return cities_list
+
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        cities = relationship("City", cascade="all, delete", backref="state")

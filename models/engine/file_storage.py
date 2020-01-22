@@ -70,3 +70,7 @@ class FileStorage:
                 if obj is v:
                     del self.__objects[k]
             self.save()
+
+    def close(self):
+        """ serialize the file path to JSON file path """
+        self.reload()
